@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
+<title>领袖户外</title>
+
+<link href="css/jquery-accordion-menu.css" rel="stylesheet" type="text/css" />
+<link href="css/font-awesome.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+*{margin: 0; padding:0;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;}
+body{background:#f0f078;}
+.content{width:260px;margin:100px auto;}
+.filterinput{
+	background-color:rgba(249, 244, 244, 0);
+	border-radius:15px;
+	width:90%;
+	height:30px;
+	border:thin solid #FFF;
+	text-indent:0.5em;
+	font-weight:bold;
+	color:#FFF;
+}
+#demo-list a{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	white-space:nowrap;
+	width:100%;
+}
+.left { float: left; width: 50%; height: 900px; background-color: #000; }
+.right { float: right; width: 50%; height: 900px;}
+.right iframe { width: 100%; }
+</style>
+
+<script src="js/jquery-1.11.2.min.js" type="text/javascript"></script>
+<script src="js/jquery-accordion-menu.js" type="text/javascript"></script>
+<script type="text/javascript">
+jQuery(document).ready(function () {
+	jQuery("#jquery-accordion-menu").jqueryAccordionMenu();
+	
+});
+
+$(function(){	
+	//顶部导航切换
+	$("#demo-list li").click(function(){
+		$("#demo-list li.active").removeClass("active")
+		$(this).addClass("active");
+	})	
+})	
+</script>
+</head>
+<body>
+<div class="left">
+	<div class="content">
+		<div id="jquery-accordion-menu" class="jquery-accordion-menu red">
+			<ul id="demo-list">
+				<li class="active"><a href="http://shequ.kllife.com/3g/xinlvpai/pc/show/html/index.html" target="_blank"><i class="fa fa-home"></i>主页 </a></li>
+				<li><a href="http://shequ.kllife.com/3g/xinlvpai/pc/show/html/list.html" target="_blank"><i class="fa fa-glass"></i>列表页 </a></li>
+				<li><a href="http://shequ.kllife.com/3g/xinlvpai/pc/show/html/content.html" target="_blank"><i class="fa fa-file-image-o"></i>内容页 </a></li>
+			</ul>
+			<div class="jquery-accordion-menu-footer">
+				领袖户外
+			</div>
+		</div>
+	</div>
+</div>
+<div class="right">
+	<iframe height="900" allowTransparency="true" style="width:100%;border:none;overflow:auto;" frameborder="0" src="http://form.mikecrm.com/FTDCf5"></iframe>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+(function($) {
+$.expr[":"].Contains = function(a, i, m) {
+	return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+};
+function filterList(header, list) {
+	//@header 头部元素
+	//@list 无需列表
+	//创建一个搜素表单
+	var form = $("<form>").attr({
+		"class":"filterform",
+		action:"#"
+	}), input = $("<input>").attr({
+		"class":"filterinput",
+		type:"text"
+	});
+	$(form).append(input).appendTo(header);
+	$(input).change(function() {
+		var filter = $(this).val();
+		if (filter) {
+			$matches = $(list).find("a:Contains(" + filter + ")").parent();
+			$("li", list).not($matches).slideUp();
+			$matches.slideDown();
+		} else {
+			$(list).find("li").slideDown();
+		}
+		return false;
+	}).keyup(function() {
+		$(this).change();
+	});
+}
+$(function() {
+	filterList($("#form"), $("#demo-list"));
+});
+})(jQuery);	
+</script>
+
+</body>
+</html>
